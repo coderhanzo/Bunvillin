@@ -146,7 +146,8 @@ select {
 }
 
 .hero-media {
-  background-image: url("./assets/background-2.png");
+  --hero-background: url("./assets/background-2.png");
+  background-image: var(--hero-background);
   background-position: center;
   background-size: cover;
 }
@@ -461,10 +462,11 @@ h3 {
 }
 
 .menu-section {
+  --parallax-background: url("./assets/parallax-main.png");
   overflow: hidden;
   background-image:
     linear-gradient(180deg, rgba(7, 29, 25, 0.92) 0%, rgba(9, 31, 27, 0.88) 54%, rgba(8, 8, 7, 0.94) 100%),
-    url("./assets/parallax-main.png");
+    var(--parallax-background);
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
@@ -1078,10 +1080,11 @@ h3 {
 }
 
 .signatures-section {
+  --parallax-background: url("./assets/parallax-main.png");
   overflow: hidden;
   background-image:
     linear-gradient(180deg, rgba(7, 29, 25, 0.78), rgba(8, 8, 7, 0.86)),
-    url("./assets/parallax-main.png");
+    var(--parallax-background);
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
@@ -1264,6 +1267,7 @@ h3 {
 }
 
 .site-footer {
+  --parallax-background: url("./assets/parallax-main.png");
   position: relative;
   display: grid;
   gap: 28px;
@@ -1272,7 +1276,7 @@ h3 {
   border-top: 0;
   background-image:
     linear-gradient(180deg, rgba(7, 29, 25, 0.9), rgba(7, 7, 6, 0.92)),
-    url("./assets/parallax-main.png");
+    var(--parallax-background);
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
@@ -1387,6 +1391,59 @@ h3 {
 }
 
 @media (max-width: 920px) {
+  .hero-media {
+    --hero-background: url("./assets/background-2-mobile.png");
+    background-position: center top;
+  }
+
+  .menu-section,
+  .signatures-section,
+  .site-footer {
+    --parallax-background: url("./assets/parallax-main-mobile.png");
+    isolation: isolate;
+    background-image: none;
+    background-color: #071d19;
+    clip-path: inset(0);
+  }
+
+  .menu-section::after,
+  .signatures-section::after,
+  .site-footer::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-position: center top;
+    background-size: cover;
+    will-change: transform;
+  }
+
+  .menu-section::after {
+    background-image:
+      linear-gradient(180deg, rgba(7, 29, 25, 0.92) 0%, rgba(9, 31, 27, 0.88) 54%, rgba(8, 8, 7, 0.94) 100%),
+      var(--parallax-background);
+  }
+
+  .signatures-section::after {
+    background-image:
+      linear-gradient(180deg, rgba(7, 29, 25, 0.78), rgba(8, 8, 7, 0.86)),
+      var(--parallax-background);
+  }
+
+  .site-footer::after {
+    background-image:
+      linear-gradient(180deg, rgba(7, 29, 25, 0.9), rgba(7, 7, 6, 0.92)),
+      var(--parallax-background);
+  }
+
+  .menu-section > *,
+  .signatures-section > *,
+  .site-footer > * {
+    position: relative;
+    z-index: 1;
+  }
+
   .site-header {
     grid-template-columns: minmax(0, 1fr) auto;
     min-height: 92px;
@@ -1500,17 +1557,20 @@ h3 {
 
   .footer-grid {
     grid-template-columns: 1fr;
-    text-align: left;
+    justify-items: center;
+    text-align: center;
   }
 
   .footer-brand {
-    justify-items: start;
-    text-align: left;
+    order: -1;
+    justify-items: center;
+    text-align: center;
   }
 
+  .footer-address,
   .footer-contact {
-    justify-items: start;
-    text-align: left;
+    justify-items: center;
+    text-align: center;
   }
 }
 
@@ -1645,8 +1705,8 @@ h3 {
 
   .site-footer {
     grid-template-columns: 1fr;
-    gap: 22px;
-    padding-top: 62px;
+    gap: 26px;
+    padding: 56px 24px 32px;
   }
 
   .site-footer address {
@@ -1656,6 +1716,8 @@ h3 {
   .site-footer span,
   .site-footer address a {
     align-items: flex-start;
+    justify-content: center;
+    text-align: center;
   }
 
   .footer-ornament {

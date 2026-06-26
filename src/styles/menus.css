@@ -1,4 +1,5 @@
 .menus-page {
+  --menus-page-background: url("../assets/parallax-main.png");
   --menu-bg: #0a1f1b;
   --menu-bg-deep: #070706;
   --menu-surface: #fff8ee;
@@ -13,9 +14,10 @@
   padding: calc(129px + clamp(42px, 7vw, 84px)) max(20px, calc((100vw - 1180px) / 2)) clamp(74px, 10vw, 126px);
   background:
     linear-gradient(180deg, rgba(7, 29, 25, 0.95), rgba(8, 8, 7, 0.94)),
-    url("../assets/parallax-main.png");
+    var(--menus-page-background);
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
   color: var(--paper);
   view-transition-name: menu-page-view;
 }
@@ -621,8 +623,33 @@
 
 @media (max-width: 920px) {
   .menus-page {
+    --menus-page-background: url("../assets/parallax-main-mobile.png");
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     min-height: calc(100svh - 92px);
     padding-top: calc(92px + clamp(34px, 7vw, 68px));
+    background: #071d19;
+    clip-path: inset(0);
+  }
+
+  .menus-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(7, 29, 25, 0.95), rgba(8, 8, 7, 0.94)),
+      var(--menus-page-background);
+    background-position: center top;
+    background-size: cover;
+    will-change: transform;
+  }
+
+  .menus-page > * {
+    position: relative;
+    z-index: 1;
   }
 
   .menu-section-nav {
