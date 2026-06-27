@@ -695,6 +695,9 @@
   .menus-hero h1,
   .menu-browser-heading h1 {
     font-size: clamp(3.4rem, 18vw, 5.3rem);
+    /* Loosen the tight desktop line-height so wrapped titles don't collapse
+       into each other or bleed into the search/filter tools below. */
+    line-height: 0.92;
   }
 
   .menu-category-grid,
