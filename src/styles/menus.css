@@ -671,14 +671,17 @@
 
   .menu-browser-back {
     justify-self: start;
-    order: 2;
+    /* Keep the back control at the top, consistent with the desktop layout. */
+    order: -1;
   }
 }
 
 @media (max-width: 680px) {
   .menus-page {
-    min-height: calc(100svh - 82px);
-    padding: calc(82px + 34px) 16px 72px;
+    /* Navbar is still 92px until 620px; keep offsets in sync to avoid the
+       sticky section nav overlapping the header in the 621-680px range. */
+    min-height: calc(100svh - 92px);
+    padding: calc(92px + 34px) 16px 72px;
   }
 
   .menus-hero {
@@ -714,7 +717,7 @@
   }
 
   .menu-section-nav {
-    top: 82px;
+    /* top stays at 92px (inherited from the 920px block) to match the navbar */
     margin-inline: -16px;
     padding-inline: 16px;
   }
@@ -735,7 +738,8 @@
   }
 
   .menu-browser-section-heading h2 {
-    order: 0;
+    /* Keep the title above its description, matching the desktop hierarchy. */
+    order: -1;
   }
 
   .menu-browser-section-heading p {
@@ -754,6 +758,18 @@
 
   .menu-item-title-row strong {
     white-space: normal;
+  }
+}
+
+@media (max-width: 620px) {
+  .menus-page {
+    /* Navbar shrinks to 82px at this breakpoint - follow it. */
+    min-height: calc(100svh - 82px);
+    padding-top: calc(82px + 34px);
+  }
+
+  .menu-section-nav {
+    top: 82px;
   }
 }
 
