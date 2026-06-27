@@ -348,8 +348,6 @@
 
 .menu-filter-chips button.is-active,
 .menu-section-nav button.is-active,
-.menu-filter-chips button:hover,
-.menu-section-nav button:hover,
 .menu-filter-chips button:focus-visible,
 .menu-section-nav button:focus-visible {
   border-color: var(--menu-accent);
@@ -358,14 +356,38 @@
   outline: none;
 }
 
+/* Only apply hover styling on devices that truly hover. On touch screens the
+   :hover state sticks after a tap, which made unselected filter chips stay
+   highlighted and look like the selection had glitched out. */
+@media (hover: hover) {
+  .menu-filter-chips button:hover,
+  .menu-section-nav button:hover {
+    border-color: var(--menu-accent);
+    background: var(--menu-accent);
+    color: #17110b;
+  }
+}
+
 .menu-section-nav {
   position: sticky;
   top: 129px;
   z-index: 20;
   margin: 0 0 clamp(28px, 4vw, 42px);
   padding: 12px 0;
-  background: linear-gradient(180deg, rgba(8, 28, 24, 0.98), rgba(8, 28, 24, 0.88));
-  backdrop-filter: blur(14px);
+  /* Opaque background so scrolled-up section headings can't bleed through the
+     sticky nav and overlap the section pills. */
+  background: #081c18;
+}
+
+/* On mobile, `.menus-page > * { position: relative; z-index: 1 }` (used to lift
+   content above the parallax background) has the same specificity as the rule
+   above and, being declared later, was overriding it — turning the nav into a
+   `position: relative` box that kept its `top` offset and got pushed down over
+   the first section heading. Re-assert the sticky positioning with a more
+   specific selector so it wins everywhere. */
+.menus-page > .menu-section-nav {
+  position: sticky;
+  z-index: 20;
 }
 
 .menu-section-nav-scroll {
